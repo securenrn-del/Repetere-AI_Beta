@@ -1,106 +1,198 @@
-Repetere AI (v0.5.1-beta)
+```markdown
+# Repetere AI (v0.5.1-beta)
 
-Author: Nathaniel Richardson Jr.
-Repository: https://github.com/securenrn-del/repetereai[cite: 2]
-Distribution: Standalone 1-Click Setup (RepetereAI-Setup-v0.5.1-beta.exe) via GitHub Releases[cite: 2, 6]
+**Author:** Nathaniel Richardson Jr.  
+**Repository:** [https://github.com/securenrn-del/repetereai](https://github.com/securenrn-del/repetereai)  
+**Binary Distribution:** Standalone 1-Click Setup (`RepetereAI-Setup-v0.5.1-beta.exe`) via [GitHub Releases](https://github.com/securenrn-del/repetereai/releases)[cite: 2, 6]
 
-Repetere AI is a native Windows C++ multimodal desktop workstation engineered to restore computing sovereignty[cite: 6]. Built directly on low-level Win32, Dear ImGui, GLFW, and OpenGL 3 runtimes, it eliminates cloud subscriptions, telemetry, and webview wrapper memory overhead[cite: 6]. It delivers private, uncensored intelligence directly on consumer NVIDIA GeForce RTX hardware[cite: 6].
+> ⚠️ **BETA NOTICE:** This is an active preview workstation engineered strictly for local execution on NVIDIA CUDA hardware. Local generation requires dedicated processing time—especially for neural audio decoding and weight streaming. Image diffusion is currently an interface layout preview (backend rendering lands in v0.6.0)[cite: 2]. If you encounter hardware-specific edge cases, please submit an issue on GitHub.
 
-⚡ Key Architectural Highlights
+**Repetere AI** is a native Windows C++ multimodal desktop workstation engineered to restore computing sovereignty[cite: 6]. Built directly on low-level Win32, Dear ImGui, GLFW, and OpenGL 3 runtimes, it eliminates cloud subscriptions, telemetry, tracking, and webview wrapper memory bloatware[cite: 6]. It delivers private, uncensored intelligence directly on consumer NVIDIA GeForce RTX hardware[cite: 6].
 
-* Native Win32 / Dear ImGui Frontend: Zero Electron or webview dependencies[cite: 6]. Rendered in hardware-accelerated OpenGL 3 with a custom slate dark theme[cite: 6].
-* Auto-Maximizing 1600p+ HiDPI Optimization: Configured with scaled 28pt Segoe UI typography and a 1.15× global UI layout scaling factor (ImGuiStyle::ScaleAllSizes) for clear rendering on modern QHD/4K displays.
-* Embedded Sidecar Lifecycle Supervision: Self-contained runtime process supervisor (ProcessManager.h) that automatically spawns, monitors, and flushes local server engines (llama-server.exe on port 8080) without requiring third-party server frontends[cite: 1, 4, 6].
-* Hardware-Aware Diagnostic Profiling: Built-in DirectX Graphics Infrastructure (DXGI) and Windows memory polling at startup[cite: 1, 6]. Automatically measures dedicated GPU VRAM and physical system RAM to configure compute tiers[cite: 1, 4].
-* Dynamic VRAM Hot-Swapping: Automatically flushes GPU memory when switching modalities (e.g., exiting text LLMs to free memory for neural audio or diffusion models) to prevent Out-Of-Memory (OOM) crashes[cite: 1, 4, 6].
-* Integrated Model Repository & Downloader: Full-screen in-app manager (Settings -> Repetere Models) supporting chunked CPR downloads directly from Hugging Face with 4-byte GGUF magic header (0x46554747) integrity verification[cite: 6].
-* Dynamic YuE2 Engine Scanner: Dynamic model discovery function (FindBestYueModel) that scans models/ recursively for any installed YuE2 quantization (including yue2-3b-q4_0.gguf, yue2-3b-q8_0.gguf, etc.) prioritized by quantization level, passing the discovered model and neural VAE to audiocpp_cli.exe without hardcoded path dependencies[cite: 14].
-* Robust Subshell Argument Sanitization: Hardened CLI string formatting and parameter validation for audiocpp_cli.exe; sanitizes quotes and flattens newlines to prevent cmd.exe terminal argument truncation and early exit errors[cite: 6, 17].
-* Thin 1-Click Installer Deployment: Packaged via Inno Setup into a modern setup executable using parallelized LZMA2 compression (LZMANumBlockThreads=8) that scaffolds user directory structures and configures isolated sidecars without requiring elevated administrator access[cite: 1, 4, 5, 7].
+---
 
-🖥️ System Requirements
+## ⚡ System Requirements
 
 | Component | Minimum Specification | Recommended Specification |
 | :--- | :--- | :--- |
-| Operating System | Windows 10 / 11 (64-bit) | Windows 11 (64-bit) |
-| GPU Acceleration | NVIDIA RTX 30-Series (8 GB VRAM) | NVIDIA RTX 40/50-Series (12 GB+ VRAM)[cite: 6] |
-| Display Drivers | NVIDIA Game Ready / Studio 528+ (CUDA 12+) | Latest NVIDIA Studio Drivers |
-| System Memory | 16 GB Physical RAM[cite: 6] | 32 GB Physical RAM (Required for Hybrid Mode) |
-| Target Storage | 20 GB free space on NVMe SSD | 50 GB+ free space on NVMe SSD |
+| **Operating System** | Windows 10 / 11 (64-bit) | Windows 11 (64-bit) |
+| **GPU Acceleration** | NVIDIA RTX 30-Series (8 GB VRAM) | NVIDIA RTX 40/50-Series (12 GB+ VRAM)[cite: 6] |
+| **Display Drivers** | NVIDIA Game Ready / Studio 528+ (CUDA 12+) | Latest NVIDIA Studio Drivers |
+| **System Memory** | 16 GB Physical RAM[cite: 6] | 32 GB Physical RAM (Required for Hybrid Mode) |
+| **Target Storage** | 20 GB free space on SSD | 50 GB+ free space on NVMe SSD |
 
-🚀 5-Workspace Multimodal Suite
+---
 
-Repetere AI partitions workflows into five isolated, state-preserved production environments[cite: 6]:
+## 🚀 Quick Start: Installation & First Launch
 
-1. CODING Workspace
-* Engine Target: Qwen 2.5 Coder 7B / 14B / 32B Instruct (Q4_K_M)[cite: 6]
-* Markdown Syntax Extraction: Automatically identifies triple-backtick language blocks (```) and presents code in horizontal-scrolling containers with snippet-level Copy buttons[cite: 6].
-* Quick-Copy Response: One-click [ Copy Full Response ] action directly beneath assistant outputs for rapid clipboard export.
-* Context Preservation: Multi-turn message serialization persists conversation history across iterative debugging sessions[cite: 15, 17].
+1. Download **`RepetereAI-Setup-v0.5.1-beta.exe`** from [GitHub Releases](https://github.com/securenrn-del/repetereai/releases)[cite: 2, 6].
+2. Run the installer[cite: 5]. It installs cleanly into `%LOCALAPPDATA%\Programs\Repetere AI\` without requiring administrator privileges[cite: 5].
+3. Launch **Repetere AI** from your Desktop shortcut or the Start Menu[cite: 1, 5].
+4. Click anywhere on the startup splash screen to enter[cite: 2, 5].
+5. The **Hardware Configuration Diagnostic** modal will profile your GPU VRAM and system memory[cite: 1, 6]. Click **Confirm Hardware** to enter the main workstation[cite: 4].
 
-2. CHAT Workspace
-* Engine Target: Meta Llama 3.1 8B Instruct (Q4_K_M)[cite: 6]
-* General Intelligence: Configured for deep reasoning, long-context document analysis, and natural conversational assistance[cite: 6].
-* Context Reset & Archiving: Red Clear Chat button archives the session to disk while resetting active VRAM context[cite: 6, 7].
+---
 
-3. CREATIVE WRITING Workspace
-* Engine Target: Hermes 3 Llama 3.1 8B / Narrative checkpoints[cite: 6]
-* Uncensored Narrative Drafting: Tailored for complex world-building, scene progression, scriptwriting, and dialogue without cloud filtering[cite: 6].
+## 📦 How to Download & Manage AI Models
 
-4. AUDIO (MUSIC) Production Studio
-* Engine Target: YuE2 Neural Audio Synthesis Engine (yue2-3b-q4_0.gguf / yue2-3b-q8_0.gguf + yue2-vae-f16.gguf)[cite: 14]
-* Full-Vocal Song Generation: Supports custom style tags (e.g., 60s Jazz, Alternative Rock) combined with multi-section structured lyrics ([Verse], [Chorus], [Bridge]) with song duration expandable up to 300 seconds[cite: 15, 17].
-* Input Sanitization: Automatic filtering converts quotes and flattens newlines to prevent cmd.exe terminal argument truncation[cite: 6].
-* Dynamic Model Discovery: Automatically resolves any installed YuE2 model quant in models/ alongside the required yue2-vae-f16.gguf decoder[cite: 14].
-* Dynamic Output Serialization: Generated tracks are automatically formatted and tagged as [StyleTag]_[Lyric1]_[Lyric2]_[Timestamp].wav in output/music/[cite: 6].
-* Integrated Transport Controls: Single-click playback via native Win32 system shell dispatching straight to default media players[cite: 6].
+AI models are the local weights that power each workspace. They must be present on disk before generation can proceed[cite: 2, 5].
 
-5. IMAGES (DIFFUSION) Studio
-* Engine Target: FLUX.1 Schnell (Q4_K_M) / Stable Diffusion CPP (sd.exe)[cite: 6]
-* Granular Generation Controls: Positive and negative prompt inputs, inference steps (1–50), and CFG scale adjustments[cite: 6].
-* Reference Image Conditioning: Native Windows file picker (OpenNativeFileDialog) allowing base image loading for image-to-image workflows.
+### In-App Downloader (Recommended):
+1. In the top menu bar, click **Settings ➔ Repetere Models**[cite: 2, 4].
+2. The catalog overlay lists verified models tuned for your hardware[cite: 1, 4]:
+   * **Coding Workspace:** *Qwen 2.5 Coder 7B Instruct* (or *14B*)[cite: 1]
+   * **General Chat Workspace:** *Meta Llama 3.1 8B Instruct*[cite: 1, 2]
+   * **Creative Writing Workspace:** *Hermes 3 Llama 3.1 8B*[cite: 1, 2]
+   * **Audio / Music Studio (Both Required):**
+     * *YuE2 3B Music & Vocal Engine* (`yue2-3b-q4_0.gguf`, ~2.48 GB)[cite: 1, 4]
+     * *YuE2 Neural Audio VAE Decoder* (`yue2-vae-f16.gguf`, ~265 MB)[cite: 1, 4]
+3. Click **[ Download ]**[cite: 1, 4]. The in-app manager streams chunks via CPR with real-time transfer speeds and validates the 4-byte GGUF magic header (`0x46554747`)[cite: 6, 8, 10].
+4. When complete, the badge turns green (**Installed**). Click **[ Return to Workspace ]**[cite: 4, 8, 18].
 
-⚙️ Hardware Compute Modes
+### Manual Weight Placement (Advanced Users):
+You can place `.gguf` weight files directly into your local installation directory:
+```text
+%LOCALAPPDATA%\Programs\Repetere AI\models\
 
-The top-right header contains an engine mode toggle[cite: 6]:
-* GPU Mode: Locks model execution entirely within dedicated GPU VRAM for the highest possible token throughput and lowest latency[cite: 6].
-* HYBRID Mode: Activates an interactive trade-off confirmation dialog[cite: 6]. Spans layers across host RAM and GPU VRAM[cite: 6]. This allows GPUs with 8 GB–12 GB of VRAM to execute larger 14B–32B parameter models without Out-Of-Memory termination[cite: 6].
+```
 
-📁 Installation & Model Setup
+*(Ensure filenames match the catalog schema exactly so internal CLI arguments resolve cleanly).*
 
-1. Install via Setup Executable
-* Download RepetereAI-Setup-v0.5.1-beta.exe from the GitHub Releases page[cite: 2, 5, 6].
-* Run the installer[cite: 5]. It installs into %LOCALAPPDATA%\Programs\Repetere AI without requiring administrator access[cite: 5].
-* Check Launch Repetere AI to start[cite: 5].
+---
 
-2. Model Weight Management
-Model weights reside in the local application directory[cite: 6]:
-Repetere AI/
-├── FREEAI.exe                 # Main desktop orchestrator
-├── bin/                       # Inference engines & CUDA runtime DLLs
-│   ├── llama-server.exe
-│   └── audio/
-│       └── audiocpp_cli.exe
-├── models/                    # GGUF Model weights directory
-└── output/
-    ├── music/                 # Generated WAV audio files
-    └── images/                # Generated diffusion artwork
+## 🧭 Navigating the Workspaces
 
-In-App Downloader:
-Navigate to Settings ➔ Repetere Models[cite: 6]. The repository table displays your hardware profile and provides one-click downloads for verified text models directly into models/[cite: 6].
+Repetere AI partitions workflows across five isolated environments:
 
-Audio Studio Files (YuE2):
-To enable song and vocal synthesis in the AUDIO workspace, ensure the following files exist in models/:
-* models/yue2-3b-q4_0.gguf (or models/yue2-3b-q8_0.gguf, Primary 3B synthesis weights)[cite: 14]
-* models/yue2-vae-f16.gguf (Neural audio VAE decoder, ~265 MB)
+### 1. CODING
 
-🔒 Conversation History & Safety Overlays
+* **Engine Target:** Qwen 2.5 Coder 7B / 14B / 32B Instruct (`Q4_K_M`)
 
-* Local JSON Persistence: Conversations automatically serialize to chat_history.json upon context clear or application shutdown[cite: 6, 7].
-* Transcript Viewer: Accessible via History ➔ Open History Transcripts, featuring foreground z-index focusing (ImGui::SetNextWindowFocus()) to inspect past sessions by timestamp[cite: 6, 7, 14].
-* Context Restoration: Single-click [ Load Conversation into Active Tab ] reloads archived sessions directly into active memory.
-* History Wipe Guard: The Clear All Saved Transcripts action triggers a confirmation modal requiring explicit verification before permanently removing stored logs.
 
-📜 License & Acknowledgments
+* **Syntax Presentation:** Automatically extracts triple-backtick language blocks (```) into horizontal-scrolling containers with snippet-level **Copy** buttons.
 
-Engineered by Nathaniel Richardson Jr. as part of the Repetere AI compute initiative[cite: 5, 6]. Distributed under the MIT License[cite: 6]. Special thanks to the open-source contributors behind llama.cpp, Dear ImGui, GLFW, and YuE2[cite: 6].
+
+* **Quick Response Copy:** Single-click **[ Copy Full Response ]** action directly beneath assistant outputs for rapid clipboard export.
+* **Context Preservation:** Multi-turn message serialization preserves conversational history across iterative debugging sessions.
+
+### 2. CHAT
+
+* **Engine Target:** Meta Llama 3.1 8B Instruct (`Q4_K_M`)
+
+
+* **General Intelligence:** Tuned for logical reasoning, document summarization, and interactive assistance.
+
+
+* **Memory Reset:** The red **Clear Chat** button archives transcripts to disk while resetting active VRAM context.
+
+
+
+### 3. CREATIVE WRITING
+
+* **Engine Target:** Hermes 3 Llama 3.1 8B / Narrative checkpoints
+
+
+* **Uncensored World-Building:** Tailored for complex narrative progression, scene development, scriptwriting, and dialogue without cloud filtering.
+
+
+
+### 4. AUDIO (MUSIC) Production Studio
+
+* **Engine Target:** YuE2 Neural Audio Synthesis Engine (`yue2-3b-q4_0.gguf` / `yue2-3b-q8_0.gguf` + `yue2-vae-f16.gguf`)
+
+
+* **Full-Song Vocal Synthesis:** Generates full vocal and instrumental tracks based on style tags (e.g., Alternative Rock, 110 bpm, driving drums) and structured lyrics (`[Verse]`, `[Chorus]`, `[Bridge]`) with generation durations configurable up to 300 seconds.
+
+
+* **Expanded Lyrics Buffer:** 8192-byte input memory buffer (`Types.h`) preventing text truncation on long multi-verse compositions.
+
+
+* **Input Sanitization:** Automatically sanitizes quotes and flattens multi-line breaks to prevent Windows `cmd.exe` subshell argument chopping.
+
+
+* **Dynamic Model Discovery:** Embedded engine scanner detects any installed YuE2 quantization (prioritizing `q8_0` > `q5_k_m` > `q4_k_m` > `q4_0`) alongside `yue2-vae-f16.gguf` without hardcoded path dependencies.
+
+
+* **Smart File Serialization:** Tracks are saved as `[StyleTag]_[Word1]_[Word2]_[Timestamp].wav` in `output/music/`.
+
+
+* **Master Transport:** Play output tracks immediately via Win32 system shell integration to your default media player.
+
+
+
+### 5. IMAGES (DIFFUSION) Studio (Preview)
+
+* **Status:** ⚠️ **Visual Layout Preview (Live Diffusion Engine scheduled for v0.6.0).**
+
+* **Current Features:** Dual positive/negative prompt buffers, step/CFG sliders, resolution presets, and native file dialogs (`OpenNativeFileDialog`) for base reference images.
+
+---
+
+## ⚙️ Hardware Compute Modes
+
+* **GPU Mode (Active Default):** Confines execution strictly to dedicated GPU VRAM for maximum token throughput and minimum latency.
+
+
+* **HYBRID Mode (Interface Preview):** Top-bar toggle with confirmation dialogs. Spans weights across system RAM and VRAM for running 14B–32B models on lower-tier cards (full dynamic layer allocation unlocks in v0.6.0).
+
+
+
+---
+
+## 🔒 Conversation History & Persistence
+
+* **Local JSON Persistence:** Transcripts serialize to `chat_history.json` on context clearing or application shutdown, supporting dynamic model tags across sessions.
+
+
+* **Transcript Viewer:** Accessible via **History ➔ Open History** with foreground z-index prioritization (`ImGui::SetNextWindowFocus()`).
+
+
+* **Context Restoration:** Single-click **[ Load Conversation into Active Tab ]** restores archived discussions directly into active working memory.
+
+
+* **History Wipe Guard:** Deletion actions trigger a modal confirmation dialog to prevent accidental data loss.
+
+---
+
+## 🛠️ What's New & Fixed in v0.5.1-beta
+
+* **Dynamic YuE2 Model Discovery:** The audio engine scanner (`FindBestYueModel`) recursively discovers any installed YuE2 quantization (including `yue2-3b-q4_0.gguf`, `yue2-3b-q8_0.gguf`, etc.) alongside `yue2-vae-f16.gguf` instead of crashing on a hardcoded path.
+
+
+* **Robust Subshell Argument Sanitization:** Hardened CLI string formatting for `audiocpp_cli.exe`. Quotes (`"`, `'`) and raw newlines are stripped and escaped to eliminate `cmd.exe` subshell truncations and exit code failures.
+
+
+* **Expanded Lyrics Memory Buffer:** Increased `lyricsBuffer` in `Types.h` to 8192 bytes, allowing complete multi-verse arrangements, tags, and bridges to be processed without buffer overflow.
+
+
+* **Multi-Turn Context Serialization:** `InferenceClient` serializes prior conversational message turns into request payloads, preserving iterative context memory across turns.
+
+
+* **Universal Model History Persistence:** Updated `HistoryManager` JSON serialization routines to support dynamic model tags (such as Meta Llama 3.1 and Hermes 3) rather than hardcoded identifiers.
+
+
+* **Safe Music Generation Guard:** Added UI validation in `RenderMusicStudioWorkspace` that disables synthesis buttons and alerts the user if required YuE2 weights or VAE files are missing.
+
+
+* **Foreground History Modal Snap:** Corrected z-indexing and window focus flags (`ImGui::SetNextWindowFocus()`) so the transcript overlay consistently opens in the foreground.
+
+
+* **Linker & Object Collision Fixes:** Resolved duplicate symbol linker errors (`LNK2005`) between `FREEAI.obj` and `Theme.obj` by isolating `stb_image` implementation definitions.
+
+
+* **High-DPI 1600p+ Viewport Optimization:** Preserved scaled 24pt/28pt Segoe UI font metrics, auto-maximizing window commands, and 1.15× responsive layout styling (`ImGuiStyle::ScaleAllSizes`).
+
+
+* **Optimized Inno Setup Packaging:** Configured parallelized LZMA2 solid compression (`LZMANumBlockThreads=8`) excluding legacy internal runtime directories to deliver a fast compile and an installer size (~1.29 GB) within release thresholds.
+
+
+
+---
+
+## 📜 License & Acknowledgments
+
+Authored by **Nathaniel Richardson Jr.** Distributed under the MIT License. Special thanks to the open-source communities powering [llama.cpp](https://github.com/ggerganov/llama.cpp), [Dear ImGui](https://github.com/ocornut/imgui), [GLFW](https://www.glfw.org/), and [YuE2](https://www.google.com/search?q=https://github.com/audio-cpp).
+
+```
+
+```
