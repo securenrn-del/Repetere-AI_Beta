@@ -188,6 +188,159 @@ Repetere AI partitions workflows across five isolated environments:
 
 
 ---
+TO DO LIST: Upcoming Features
+---
+### Repetere AI: Workstation Evolution & Architectural Solutions
+
+---
+
+### 1. Multi-Vendor Compute Strategy: Universal GPU & APU Support
+
+* **The Problem:** Compiling strictly for NVIDIA CUDA isolates AMD Radeon, Intel Arc, and integrated APUs/iGPUs, preventing broad hardware accessibility.
+
+
+* **The Solution:** Implement a dual-backend architecture:
+* **Bundled Execution Engines:** Ship pre-compiled binaries in `bin/cuda/llama-server.exe` (peak token performance on NVIDIA) and `bin/vulkan/llama-server.exe` (universal compute across AMD, Intel, and APUs).
+* **Automated Vendor Discovery:** Update `HardwareScanner.h` to read DXGI `desc.VendorId`:
+
+
+* `0x10DE` $\rightarrow$ NVIDIA (Default to CUDA).
+* `0x1002` (AMD) / `0x8086` (Intel) $\rightarrow$ Default to Vulkan.
+
+
+* **User Backend Override:** Add an ImGui toggle under `Settings -> Acceleration` (`[Auto-Detect]`, `[CUDA]`, `[Vulkan]`) that dynamically switches the sidecar path without modifying the core orchestrator loop.
+* **Dual-Pipeline Routing (APU / Discrete GPU):** Instead of layer-splitting a single model across slow PCIe buses, run independent sidecars on separate ports:
+* **dGPU (Device 0 / CUDA):** Dedicated to heavy text/code LLM generation on port 8080.
+
+
+* **APU/iGPU (Device 1 / Vulkan):** Dedicated to background tasks, audio synthesis (`audiocpp_cli.exe`), or embeddings on port 8081.
+
+
+
+
+
+
+
+---
+
+### 2. UI Layout Overhaul: The 4-Zone Workstation Shell
+
+* **The Problem:** Flat horizontal tabs with trailing header buttons cause layout clipping, restrict screen real estate, and feel like a prototype rather than an integrated workstation.
+
+
+* **The Solution:** Refactor the Dear ImGui shell into four distinct structural zones designed for high-resolution displays:
+
+
+* **Left Activity Rail (~70px):** Vertical icon bar to toggle active workspaces (`CODE`, `CHAT`, `WRIT`, `SONG`, `DIFF`).
+
+
+* **Top Telemetry Header:** Displays workspace breadcrumbs, active `.gguf` checkpoint, and the `[GPU / HYBRID]` compute switch.
+
+
+* **Central Viewport:** Modality-specific canvas viewports.
+
+
+* **Bottom Diagnostic Shelf (~32px):** Real-time monitoring of sidecar process health, dedicated VRAM usage (DXGI), and host RAM load.
+
+
+
+
+
+---
+
+### 3. CODING: Split-Pane IDE & Agentic Diff Engine
+
+* **The Problem:** Streaming full file rewrites across chat bubbles wastes token bandwidth, generates latency, and risks compilation breaks.
+* **The Solution:**
+* **Workspace Split:** 35% chat inspector on the left; 65% code canvas using `ImGuiColorTextEdit` on the right.
+
+
+* **Surgical Diff Engine:** Local Qwen 2.5 Coder is instructed via prompt contracts to output standard `<<<<<<< SEARCH / ======= / >>>>>>> REPLACE` blocks.
+
+
+* **In-Place Patching:** A C++ parser fuzzy-matches lines in the active editor buffer, replaces code in place, and visually highlights modified lines without rewriting the entire file.
+* **System Compiler Toolchain Discovery:** Rather than bundling multi-gigabyte compiler toolchains into the setup package, detect system-installed compilers (`cl.exe`, `g++`, `clang++`, `python.exe`) via `PATH`.
+
+
+* **Sandboxed Execution Drawer:** Execute code via `CreateProcessW` wrapped inside a Windows Job Object (enforcing execution timeouts and memory limits), streaming `stdout`/`stderr` through anonymous pipes directly into a bottom terminal tray.
+
+
+
+---
+
+### 4. AUDIO (MUSIC): Arrangement Rack & Saved Track Deck
+
+* **The Problem:** Music synthesis via `audiocpp_cli.exe` (YuE2) was isolated to flat text boxes without arrangement controls, track history, or easy styling syntax.
+
+
+* **The Solution:**
+* **Arrangement Rack (Upper Deck):** Retains the 8192-byte `lyricsBuffer` with one-click **Vocal Directive Chips** (`[Singer 1 - Screaming]`, `[Clean Belt]`, `[Rap / Clinical Cadence]`, `[Dynamic Drop]`). Clicking a chip appends structural brackets directly into the lyric string without manual formatting.
+
+
+* **Saved Audio Deck (Lower Deck):** Scans `output/music/` using `<filesystem>` on startup, populating past renders with file size, timestamps, and one-click `[▶ Play]`, `[⏹ Stop]`, and `[Edit in Rack]` actions.
+
+
+* **Metadata Restoration:** `[Edit in Rack]` parses the track's metadata sidecar file and reloads its exact lyrics, style tags, and BPM back into active memory buffers.
+
+
+* **Two-Stage Generation:** Natural language prompts are first parsed on port 8080 by the text LLM to construct acoustic tags and verse formatting, then handed off to `audiocpp_cli.exe` with sanitized arguments.
+
+
+
+
+
+---
+
+### 5. IMAGES: Photoshop-Style Studio with Zero VRAM Leaks
+
+* **The Problem:** Binding large collections of image textures into GPU memory simultaneously leads to rapid VRAM exhaustion and crashes.
+
+
+* **The Solution:**
+* **3-Column Studio Layout:** Left Inspector (Prompts, steps, CFG, aspect ratio), Center Viewport (Interactive canvas), and Right Saved Assets Gallery.
+
+
+* **Dynamic Texture Virtualization:** Only the single active image displayed on the canvas is bound to GPU VRAM. Loading or generating a new image calls `glDeleteTextures(1, &activeCanvasTexture)` before binding the next texture.
+
+
+* **Metadata Disk Browser:** The right-hand gallery scans `output/images/` via `<filesystem>`, loading only filename and size metadata into a lightweight table with zero idle VRAM footprint.
+
+
+* **Interactive 2D Transform Canvas:** ImGui drawlist viewport supporting mouse-wheel zoom (10% to 600%) and right/middle-click panning across an OpenGL quad.
+
+
+
+---
+
+### 6. CREATIVE WRITING & CHAT
+
+* **CREATIVE WRITING (Manuscript Studio):**
+* **Live Chapter Canvas:** Binds directly to `.txt`/`.md` chapter files via `ImGuiColorTextEdit`.
+* **Lore Drawer & Story Bible:** Collapsible reference drawer containing character profiles, timeline constraints, and world rules that are automatically prepended to the system prompt to prevent narrative drift.
+* **Targeted Scene Diffs:** Highlight an excerpt or beat, prompt a stylistic revision, and let the diff engine patch that specific passage in memory while keeping the rest of the manuscript intact.
+
+
+* **CHAT (Conversational Scratchpad):**
+* Retains its clean, lightweight conversational interface for quick technical Q&A, math, and system queries without being tied to an active document or audio buffer.
+
+
+
+
+
+---
+
+### Immediate Implementation Checklist
+
+1. **Scaffold `DiffEngine.h`:** Write the string search-and-replace algorithm to locate and patch source text using `SEARCH/REPLACE` blocks.
+2. **Add `ImGuiColorTextEdit`:** Integrate the editor source files into the Visual Studio solution under the UI filter.
+
+
+3. **Scaffold Split-Pane in `FREEAI.cpp`:** Divide the `CODING` workspace into a 35% chat inspector and a 65% editor buffer.
+
+
+4. **Expand Audio Studio Deck:** Implement the `<filesystem>` scanner for `output/music/` and add the vocal directive chip buttons in `RenderMusicStudioWorkspace`.
+
+---
 
 ## 📜 License & Acknowledgments
 
