@@ -1,4 +1,4 @@
-# ⚡ Repetere AI (beta-0.6b) ⚡
+# ⚡ Repetere AI (beta-0.6b.4) ⚡
 
 By Nathaniel Richardson Jr.
 
