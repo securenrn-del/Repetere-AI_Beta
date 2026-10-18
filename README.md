@@ -1,3 +1,4 @@
+```markdown
 # ⚡ Repetere AI (beta-0.6b.4) ⚡
 
 By Nathaniel Richardson Jr.
@@ -6,80 +7,57 @@ By Nathaniel Richardson Jr.
 
 ### Compute Sovereignty Restored
 
-**Repetere AI** is a decentralized, self-hosted Artificial Intelligence ecosystem engineered to restore computing sovereignty, eliminate recurring cloud subscription fees, and provide uncensored, 100% private multimodal generation directly on consumer-grade hardware.
+**Repetere AI** is a decentralized, self-hosted Artificial Intelligence ecosystem engineered to restore computing sovereignty, eliminate recurring cloud subscription fees, and provide uncensored, 100% private multimodal generation directly on consumer-grade hardware[cite: 1, 11].
 
-Named after the Latin verb *repetere* ("to demand back / reclaim" compute sovereignty, and "to repeat / iterate" computational forward loops), this repository houses the native C++ desktop host application for Windows.
+Named after the Latin verb *repetere* ("to demand back / reclaim" compute sovereignty, and "to repeat / iterate" computational forward loops), this repository houses the native C++ desktop host application for Windows[cite: 1, 11].
 
 ---
 
 > [!IMPORTANT]
-> **Zero Cloud Telemetry:** All inference requests, prompts, transcripts, audio arrangements, and image generations execute 100% offline and locally on your host hardware.
-> 
-> 
+> **Zero Cloud Telemetry:** All inference requests, prompts, transcripts, audio arrangements, and image generations execute 100% offline and locally on your host hardware[cite: 1].
 
 ---
 
 ## ⚡ System Requirements
 
-| Component | Minimum Specification | Recommended Specification
-
- |
-| --- | --- | --- |
-| **Operating System** | Windows 10 (64-bit)
-
- | Windows 11 (64-bit)
-
- |
-| **GPU Acceleration** | NVIDIA RTX 30-Series (8 GB VRAM)
-
- | NVIDIA RTX 40/50-Series (12 GB+ VRAM)
-
- |
-| **Display Drivers** | NVIDIA Game Ready / Studio 528+ (CUDA 12+)
-
- | Latest NVIDIA Studio Drivers
-
- |
-| **System Memory** | 16 GB Physical RAM
-
- | 32 GB Physical RAM (Required for Hybrid Mode)
-
- |
-| **Target Storage** | 20 GB free space on SSD
-
- | 50 GB+ free space on NVMe SSD
-
- |
+| Component | Minimum Specification | Recommended Specification |
+| :--- | :--- | :--- |
+| **Operating System** | Windows 10 (64-bit)[cite: 1] | Windows 11 (64-bit)[cite: 1] |
+| **GPU Acceleration** | NVIDIA RTX 30-Series (8 GB VRAM)[cite: 1] | NVIDIA RTX 40/50-Series (12 GB+ VRAM)[cite: 1] |
+| **Display Drivers** | NVIDIA Game Ready / Studio 528+ (CUDA 12+)[cite: 1] | Latest NVIDIA Studio Drivers[cite: 1] |
+| **System Memory** | 16 GB Physical RAM[cite: 1] | 32 GB Physical RAM (Required for Hybrid Mode)[cite: 1] |
+| **Target Storage** | 20 GB free space on SSD[cite: 1] | 50 GB+ free space on NVMe SSD[cite: 1] |
 
 ---
 
-## 📋 Comprehensive Changelog & Today's Updates
+## 📋 Comprehensive Changelog & Version History
 
-### Version 0.6b-beta — Modular Decoupling, Full FLUX Architecture & Multi-Encoder Integrity
+### Version 0.6b.4-beta — Modular Decoupling, Full FLUX Architecture & Multi-Encoder Integrity
 
-Version 0.6b-beta represents a major milestone in codebase decoupling and multimodal completion. Workspace presentation logic has been completely separated out of `FREEAI.cpp` into dedicated translation units (`ImageStudioUI.cpp`, `MusicStudioUI.cpp`, `ChatUI.cpp`), the FLUX diffusion pipeline is fully wired with multi-encoder detection, and critical runtime path resolutions have been hardened.
+Version 0.6b.4-beta delivers complete modular separation of core workspaces out of `FREEAI.cpp`, deploys the full FLUX diffusion multi-encoder pipeline, hardens runtime path resolution, and integrates persistent companion weight validation across audio and visual studios[cite: 1, 2, 8].
 
 ```diff
 + Added modular UI translation unit decoupling: isolated ImageStudioUI and MusicStudioUI out of FREEAI.cpp
 + Added complete FLUX diffusion multi-component catalog: clip_l.gguf, t5xxl_q4_k.gguf, and ae.gguf alongside flux1-schnell-Q4_0.gguf
-+ Added support for both .gguf and .safetensors encoder formats (clip_l, ae, t5xxl_q4_k)
++ Added dual format support for encoders: accepts both .gguf and .safetensors variants (clip_l, ae, t5xxl_q4_k)
 + Added persistent red UI warning badges and action cards for missing companion weights in Image and Audio studios
 + Added CPR follow-redirect flags (cpr::Redirect{10L, true, true, ...}) for seamless Hugging Face LFS asset downloads
-+ Added normalized single-root pathing (<repo_root>/output/music) to prevent nested /freeai/freeai directory duplication
-! Fixed "Open Output Folder" in Music Studio to ensure directory creation and direct explorer launching
++ Added normalized single-root pathing (<repo_root>/output/music) to eliminate nested /freeai/freeai directory duplication
++ Added automated VRAM unloading on tab exit via ImageStudioUI::UnloadFromMemory
+! Fixed "Open Output Folder" in Music Studio to ensure directory creation and direct explorer shell launching
 ! Fixed splash screen startup failure by adding multi-level relative path resolution (./, ../, ../../)
-! Fixed History transcript modal closing mechanics (Escape, close box [X], and Return buttons restored)
-! Fixed Settings menu to restore Hardware Diagnostics Profile and About Repetere AI dialog with GitHub repository linking
+! Fixed History transcript modal closing mechanics (Escape, title bar [X], and Return buttons restored)
+! Fixed Settings menu to restore Hardware Diagnostics Profile and About Repetere AI dialog with repository link
 
 ```
 
 ---
 
-### What Was Fixed Today
+#### Detailed Fixes & Performance Enhancements
 
-* **Splash Screen Auto-Discovery:** Resolved path-traversal failures in `ProcessManager::ResolvePath` when launching directly from Visual Studio's `$(ProjectDir)`[cite: 14]. Multi-directory fallbacks (`./`, `../`, `../../`) guarantee `splashscreen.jpg` is always loaded into an OpenGL texture with proper aspect-ratio scaling[cite: 4, 5].
-* **Settings & Diagnostic Access:** Restored **Settings ➔ Hardware Diagnostics Profile** and the centered **About Repetere AI** modal[cite: 2, 5], linking directly to [https://github.com/securenrn-del/Repetere-AI_Beta](https://www.google.com/search?q=https://github.com/securenrn-del/Repetere-AI_Beta) via `ShellExecuteA`[cite: 2, 5, 14].
-* **History Modal Exit Routing:** Fixed event trapping in `HistoryUI` so pressing **Escape**, clicking the title bar `[X]`, or clicking **[ Return to Workspace ]** immediately and reliably closes the overlay[cite: 2, 6].
+* **Splash Screen Auto-Discovery:** Resolved relative path-traversal failures in `ProcessManager::ResolvePath` when executing directly inside Visual Studio's `$(ProjectDir)`[cite: 1, 14]. Multi-directory fallbacks (`./`, `../`, `../../`) ensure `splashscreen.jpg` is always located and bound to an OpenGL texture with correct aspect-ratio scaling[cite: 1, 4, 5].
+* **Settings & Diagnostics Access:** Restored access to **Settings ➔ Hardware Diagnostics Profile** and the centered **About Repetere AI** modal[cite: 1, 2, 5], linking directly to [https://github.com/securenrn-del/Repetere-AI_Beta](https://www.google.com/search?q=https://github.com/securenrn-del/Repetere-AI_Beta) via `ShellExecuteA`[cite: 1, 2, 5, 14].
+* **History Modal Exit Routing:** Fixed input trapping in `HistoryUI` so pressing **Escape**, clicking the title bar close box `[X]`, or clicking **[ Return to Workspace ]** immediately and reliably closes the overlay[cite: 1, 2, 6].
 * **Music Studio Output Directory Normalization:** Corrected relative path concatenation that created double-nested `/freeai/freeai/output/music` folders. Paths now resolve strictly to `<repo_root>/output/music`.
 
 
@@ -89,23 +67,23 @@ Version 0.6b-beta represents a major milestone in codebase decoupling and multim
 
 ---
 
-### What Was Added Today
+#### Features & Architectural Additions
 
 * **Full Image Studio Architecture (`ImageStudioUI.h/.cpp`):**
-* Fully decoupled the image generation canvas into its own dedicated module[cite: 2, 12].
-* Added `ImageStudioUI::OnTabEnter` to automatically index `./output/images/` and `ImageStudioUI::UnloadFromMemory` to flush active OpenGL textures and buffers from VRAM when leaving the tab[cite: 2, 14].
-* Multi-component encoder verification: Image Studio inspects `./models/` for companion dependencies required by FLUX[cite: 2], supporting both `.gguf` and `.safetensors` variants (`clip_l`, `ae`, and `t5xxl_q4_k`) with a missing-file notice card[cite: 2].
+* Decoupled the image generation canvas into its own dedicated compilation unit[cite: 1, 2, 12].
+* Added `ImageStudioUI::OnTabEnter` to automatically index `./output/images/` and `ImageStudioUI::UnloadFromMemory` to flush active OpenGL textures and buffers from VRAM when switching tabs[cite: 1, 2, 14].
+* Multi-component encoder verification: Image Studio inspects `./models/` for companion dependencies required by FLUX[cite: 1, 2], supporting both `.gguf` and `.safetensors` variants (`clip_l`, `ae`, and `t5xxl_q4_k`) with a missing-file notice card[cite: 1, 2].
 
 
-* **Synchronized Catalog in In-App Downloader (`ModelDownloader.h/.cpp`):**
-* Expanded `GetCatalog()` to include all required components for FLUX diffusion and YuE2 audio synthesis.
-* Added pre-configured catalog download targets for `flux1-schnell-Q4_0.gguf`, `clip_l.gguf`, `t5xxl_q4_k.gguf`, and `ae.gguf`.
-* Included `cpr::Redirect{10L, true, true, cpr::PostRedirectFlags::POST_ALL}` to follow Hugging Face CDN and LFS redirection loops without corrupting `.part` downloads.
+* **Synchronized In-App Downloader Catalog (`ModelDownloader.h/.cpp`):**
+* Expanded `GetCatalog()` to include all required components for FLUX diffusion and YuE2 audio synthesis[cite: 1, 4].
+* Added pre-configured catalog download targets for `flux1-schnell-Q4_0.gguf`, `clip_l.gguf`, `t5xxl_q4_k.gguf`, and `ae.gguf`[cite: 1, 4].
+* Included `cpr::Redirect{10L, true, true, cpr::PostRedirectFlags::POST_ALL}` to follow Hugging Face CDN and LFS redirection loops without corrupting `.part` downloads[cite: 1, 4].
 * Enforced 4-byte GGUF magic binary header verification (`0x46554747` / `GGUF`) in `ValidateGGUFHeader()` before finalizing downloaded models[cite: 1, 4, 13].
 
 
-* **Modular Codebase Reorganization:**
-* Cleaned monolithic blocks out of `FREEAI.cpp`, isolating `MusicStudioUI` and `ImageStudioUI` into dedicated translation units while keeping `Types.h` structurally decoupled[cite: 2, 12].
+* **Modular Codebase Separation:**
+* Cleaned monolithic blocks out of `FREEAI.cpp`, isolating `MusicStudioUI` and `ImageStudioUI` into dedicated translation units while keeping `Types.h` structurally decoupled[cite: 1, 2, 12].
 
 
 
@@ -113,56 +91,93 @@ Version 0.6b-beta represents a major milestone in codebase decoupling and multim
 
 ## 🚀 Quick Start: Installation & First Launch
 
-1. Go to the [Releases](https://github.com/securenrn-del/Repetere-AI_Beta/releases) page and download **`RepetereAI-Setup-v0.6b-beta.exe`**.
-
-
-2. Run the installer. It extracts into `%LOCALAPPDATA%\Programs\Repetere AI\` without requiring administrative privileges.
-
-
+1. Go to the [Releases](https://github.com/securenrn-del/Repetere-AI_Beta/releases) page and download **`RepetereAI-Setup-v0.6b.4-beta.exe`**.
+2. Run the installer[cite: 1, 12]. It extracts into `%LOCALAPPDATA%\Programs\Repetere AI\` without requiring administrative privileges[cite: 1, 12].
 3. Launch **Repetere AI** from your Desktop shortcut or Start Menu.
-4. Dismiss the startup splash screen by **clicking anywhere** or pressing any key[cite: 2, 7].
-5. The **Hardware Configuration Diagnostic** modal inspects your dedicated VRAM and host RAM[cite: 7]. Click **Confirm Hardware** to enter the main workstation[cite: 7].
+4. Dismiss the startup splash screen by **clicking anywhere** or pressing any key[cite: 1, 2, 7].
+5. The **Hardware Configuration Diagnostic** modal inspects your dedicated VRAM and host RAM[cite: 1, 7]. Click **Confirm Hardware** to enter the main workstation[cite: 1, 7].
 
 ---
 
 ## 📦 How to Download & Manage AI Models
 
-AI models are the local weights that power each workspace. They must be downloaded before you can generate code, text, music, or images[cite: 4, 12].
+AI models are the local weights that power each workspace. They must be present on disk before generation can proceed[cite: 1, 4, 12].
 
 ### Option A: In-App Model Downloader (Recommended)
 
-1. In the top menu bar, click **Settings ➔ Repetere Models**.
-
-
-2. The overlay displays your detected hardware profile, active engine bindings, and verified catalog[cite: 4, 12]:
-* **Coding Workspace:** *Qwen 2.5 Coder 7B Instruct* (or *14B / 32B Hybrid*)[cite: 4, 6]
-* **Chat Workspace:** *Meta Llama 3.1 8B Instruct*[cite: 4]
-* **Creative Writing Workspace:** *Hermes 3 Llama 3.1 8B*[cite: 4]
+1. In the top menu bar, click **Settings ➔ Repetere Models**[cite: 1, 12].
+2. The overlay displays your detected hardware profile, active engine bindings, and verified catalog[cite: 1, 4, 12]:
+* **Coding Workspace:** *Qwen 2.5 Coder 7B Instruct* (or *14B / 32B Hybrid*)[cite: 1, 4, 6]
+* **Chat Workspace:** *Meta Llama 3.1 8B Instruct*[cite: 1, 4]
+* **Creative Writing Workspace:** *Hermes 3 Llama 3.1 8B*[cite: 1, 4]
 * **Audio / Music Studio (Required Files):**
-* *YuE2 3B Full Song & Singing Engine* (`yue2-3b-q4_0.gguf`, ~2.48 GB)[cite: 9]
-* *YuE2 Neural Audio VAE Decoder* (`yue2-vae-f16.gguf`, ~265 MB)[cite: 9, 12]
+* *YuE2 3B Full Song & Singing Engine* (`yue2-3b-q4_0.gguf`, ~2.48 GB)[cite: 1, 9]
+* *YuE2 Neural Audio VAE Decoder* (`yue2-vae-f16.gguf`, ~265 MB)[cite: 1, 9, 12]
 
 
 * **Images Workspace (FLUX Schnell & Companion Encoders):**
-* *FLUX.1 Schnell Diffusion* (`flux1-schnell-Q4_0.gguf`)[cite: 4]
-* *CLIP-L Text Encoder* (`clip_l.gguf` or `.safetensors`)[cite: 2]
-* *T5-XXL Text Encoder* (`t5xxl_q4_k.gguf` or `.safetensors`)[cite: 2]
-* *VAE Decoder* (`ae.gguf` or `.safetensors`)[cite: 2]
+* *FLUX.1 Schnell Diffusion* (`flux1-schnell-Q4_0.gguf`)[cite: 1, 4]
+* *CLIP-L Text Encoder* (`clip_l.gguf` or `.safetensors`)[cite: 1, 2]
+* *T5-XXL Text Encoder* (`t5xxl_q4_k.gguf` or `.safetensors`)[cite: 1, 2]
+* *VAE Decoder* (`ae.gguf` or `.safetensors`)[cite: 1, 2]
 
 
 
 
-3. Click **[ Download ]** next to your desired model[cite: 4, 12]. The in-app manager streams chunks via CPR with real-time transfer telemetry and validates the 4-byte GGUF magic header (`0x46554747`)[cite: 4, 5].
-4. When finished, the status badge changes to green (**Installed**)[cite: 4, 18]. Click **[ Return to Workspace ]**.
+3. Click **[ Download ]** next to your desired model[cite: 1, 4, 12]. The in-app manager streams chunks via CPR with real-time transfer telemetry and validates the 4-byte GGUF magic header (`0x46554747`)[cite: 1, 4, 5].
+4. When finished, the status badge changes to green (**Installed**)[cite: 1, 4]. Click **[ Return to Workspace ]**.
 
 ### Option B: Manual File Placement (Advanced)
 
-Place `.gguf` or `.safetensors` weight files directly into your local application directory[cite: 2, 12]:
+Place `.gguf` or `.safetensors` weight files directly into your local application directory[cite: 1, 2, 12]:
 
 ```text
 %LOCALAPPDATA%\Programs\Repetere AI\models\
 
 ```
+
+---
+
+## 🧭 Navigating the Workspaces
+
+Repetere AI organizes workflows across five dedicated environments[cite: 1, 5]:
+
+### 1. CODING (Split-View IDE)
+
+* **Engine Target:** Qwen 2.5 Coder checkpoints (7B, 14B, and 32B Hybrid)[cite: 1, 6].
+* **Features:** Triple-backtick markdown extraction with formatted, horizontal-scrolling code containers, dedicated snippet copy actions, and a single-click `[ Copy Full Response ]` button[cite: 1, 6].
+
+### 2. CHAT (Conversational Assistant)
+
+* **Engine Target:** Meta Llama 3.1 8B Instruct[cite: 1, 6].
+* **Features:** General reasoning, document summarization, multi-turn message history, and a red `Clear Chat` action protected by context wipe confirmation guards[cite: 1, 6, 8].
+
+### 3. CREATIVE WRITING (Narrative Studio)
+
+* **Engine Target:** Hermes 3 Llama 3.1 8B[cite: 1, 6].
+* **Features:** Uncensored long-form story drafting, scriptwriting, timeline planning, and world-building without cloud filtering[cite: 1, 6].
+
+### 4. AUDIO (MUSIC) Production Studio
+
+* **Engine Target:** YuE2 Neural Audio Synthesis Engine (`yue2-3b-q4_0.gguf` / `yue2-3b-q8_0.gguf` + `yue2-vae-f16.gguf`)[cite: 1, 6, 10].
+* **Features:**
+* 8,192-byte multiline lyrics and stem input buffer (`lyricsBuffer`) supporting structural tags (`[Verse]`, `[Chorus]`, `[Bridge]`)[cite: 1, 6, 10].
+* Configurable duration slider supporting up to 360 seconds (6 minutes) of continuous generation[cite: 1, 2, 12].
+* Subshell argument sanitization converting double quotes and flattening line breaks to prevent Win32 command truncation[cite: 1, 6, 10].
+* Dynamic track serialization saving renders as `[StyleTag]_[Word1]_[Word2]_[Timestamp].wav` in `output/music/`[cite: 1, 6, 10].
+* Integrated Win32 transport playback controls (`PlaySoundA` / `ShellExecuteA`) and direct folder access[cite: 1, 6, 10].
+
+
+
+### 5. IMAGES (Diffusion Studio)
+
+* **Engine Target:** FLUX.1 Schnell (`flux1-schnell-Q4_0.gguf`) paired with companion text encoders and VAE decoder[cite: 1, 2, 4].
+* **Features:**
+* Dual positive and negative prompt inputs, inference steps (1–50), and CFG scale adjustments[cite: 1, 6, 9].
+* Standard resolution presets (`512x512`, `768x768`, `1024x1024`, `1280x720`) and native reference image importing for image-to-image conditioning[cite: 1, 6, 9].
+* Automated VRAM cleanup via `ImageStudioUI::UnloadFromMemory` to flush textures and buffers upon tab exit[cite: 1, 2, 14].
+
+
 
 ---
 
@@ -200,19 +215,10 @@ RepetereAI/
 
 ---
 
-## 🛠️ Verification Checklist for Next Build
+## 📜 License & Acknowledgments
 
-1. **Clean & Build Solution:** Run **Build ➔ Clean Solution**, followed by **Ctrl + Shift + B** in Visual Studio 2022 to confirm zero compilation or linking errors.
-2. **Launch & Verify UI Navigation:**
-* Confirm the splash screen displays and dismisses on click or keypress.
-* Open **Settings ➔ Hardware Diagnostics Profile** and **Settings ➔ About Repetere AI** to ensure modals appear and the GitHub URL activates cleanly.
-* Open **History ➔ Open History Transcripts** and confirm **Escape** and the **[ Return to Workspace ]** button properly close the window.
+Engineered by **Nathaniel Richardson Jr.** as part of the Repetere AI compute initiative[cite: 1, 5, 6]. Distributed under the MIT License[cite: 1, 6]. Special thanks to the open-source communities powering llama.cpp, Dear ImGui, GLFW, and YuE2[cite: 1, 6].
 
+```
 
-3. **Validate Audio Studio Pathing:**
-* Generate a test audio track and verify the console outputs `--out` targeting `<repo_root>/output/music/<track_name>.wav` without redundant nested paths.
-* Click **[ Open Output Folder ]** and ensure Windows Explorer launches directly to `output/music/`.
-
-
-4. **Inspect Image Studio Encoders:**
-* Open the **IMAGES** tab and verify whether companion files (`clip_l`, `t5xxl`, `ae`) are detected or trigger the expected download notice cards.
+```
