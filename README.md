@@ -359,3 +359,13 @@ Place `.gguf` or companion `.safetensors` weight files directly into your local 
 %LOCALAPPDATA%\Programs\Repetere AI\models\
 
 ```
+Video Demonstrations: 
+- <https://youtu.be/EbnQngF_XS8>
+- <https://youtu.be/qtKOvZmqiTY>
+- <https://youtu.be/hymrx6ZanV0>
+
+<img width="2560" height="1528" alt="audio_demo" src="https://github.com/user-attachments/assets/c306e762-7980-4d75-9cdf-5d123c757b8b" />
+<img width="2560" height="1528" alt="intro_demo" src="https://github.com/user-attachments/assets/c104a311-5b12-4608-9506-5a46e9e02c42" />
+<img width="2560" height="1528" alt="creative_demo" src="https://github.com/user-attachments/assets/ac76462b-31ac-494b-b3b3-e5645e53c746" />
+<img width="2560" height="1528" alt="coder_demo" src="https://github.com/user-attachments/assets/385ddb3d-968a-46c2-a5f1-608fd890e553" />
+
