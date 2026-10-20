@@ -364,6 +364,11 @@ Video Demonstrations:
 - <https://youtu.be/qtKOvZmqiTY>
 - <https://youtu.be/hymrx6ZanV0>
 
+---
+
+## 📸 Workspace Screenshots
+
+---
 <img width="2560" height="1528" alt="audio_demo" src="https://github.com/user-attachments/assets/c306e762-7980-4d75-9cdf-5d123c757b8b" />
 <img width="2560" height="1528" alt="intro_demo" src="https://github.com/user-attachments/assets/c104a311-5b12-4608-9506-5a46e9e02c42" />
 <img width="2560" height="1528" alt="creative_demo" src="https://github.com/user-attachments/assets/ac76462b-31ac-494b-b3b3-e5645e53c746" />
