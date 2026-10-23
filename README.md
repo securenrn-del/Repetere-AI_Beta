@@ -10,13 +10,15 @@ By Nathaniel Richardson Jr.
 > [!WARNING]
 > ### 🛑 PLEASE READ: THIS IS LOCAL AI!
 > 
-> **Everything you do runs directly on your machine and will take time.** Model weight streaming, prompt ingestion, neural audio synthesis, and image generation are compute-heavy processes. Also this an unsigned installer, so it may show an unsafe warning when you attempt to install, click show more then install anyway. I will begin signing in 1.0[cite: 1].
+> **Everything you do runs directly on your machine and will take time.** Model weight streaming, prompt ingestion, neural audio synthesis, and image generation are compute-heavy processes.
+
+Also this an unsigned installer, so it may show an unsafe warning when you attempt to install, click show more then install anyway. I will begin signing in 1.0[cite: 1].
 
 > **If the status bar is moving and not throwing an error, IT IS STILL WORKING!** Please be patient and allow the generation pipeline to complete[cite: 1].
 
 I am in dire need of anyone who has issues or wants to talk about the architecture, please drop a line on our reddit:
 
-[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo](https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo)
+[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo]
 
 ---
 
