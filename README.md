@@ -16,7 +16,7 @@ By Nathaniel Richardson Jr.
 
 I am in dire need of anyone who has issues or wants to talk about the architecture, please drop a line on our reddit:
 
-https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo
+[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo](https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo)
 
 ---
 
