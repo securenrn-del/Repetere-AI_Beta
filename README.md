@@ -14,6 +14,7 @@ Also this an unsigned installer, so it may show an unsafe warning when you attem
 > **If the status bar is moving and not throwing an error, IT IS STILL WORKING!** Please be patient and allow the generation pipeline to complete.
  ---
 > ** ### 🛑 hotfix for Nvidia lower than Blackwell is now up, download audiocpp_cli.exe and put it in ../bin/audio, next download cublas64_13.dll cublasL64_13.dll and cudaart64_13.dll and place them in ../bin/audio. This will fix all issues for Nvidia cards.
+> ** download the fix here [https://github.com/securenrn-del/Repetere-AI_Beta/releases/tag/NVIDIA_HOTFIX](https://github.com/securenrn-del/Repetere-AI_Beta/releases/tag/NVIDIA_HOTFIX)
 ---
 
 ## 🌟 Discover Repetere AI 1.0 Sovereign Edition!
@@ -30,7 +31,7 @@ Also this an unsigned installer, so it may show an unsafe warning when you attem
 
 I am in dire need of anyone who has issues or wants to talk about the architecture, please drop a line on our reddit:
 
-[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo]
+[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo](Reddit Community)
 
 ---
 
