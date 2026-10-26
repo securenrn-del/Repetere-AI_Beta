@@ -12,6 +12,7 @@ By Nathaniel Richardson Jr.
 Also this an unsigned installer, so it may show an unsafe warning when you attempt to install, click show more then install anyway. I will begin signing in 1.0.
 
 > **If the status bar is moving and not throwing an error, IT IS STILL WORKING!** Please be patient and allow the generation pipeline to complete.
+> ---
 > **hotfix for Nvidia lower than Blackwell is now up, download audiocpp_cli.exe and put it in ../bin/audio, next download cublas64_13.dll cublasL64_13.dll and cudaart64_13.dll and place them in ../bin/audio. This will fix all issues for Nvidia cards.
 ---
 
