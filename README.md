@@ -31,7 +31,7 @@ Also this an unsigned installer, so it may show an unsafe warning when you attem
 
 I am in dire need of anyone who has issues or wants to talk about the architecture, please drop a line on our reddit:
 
-[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo](Reddit Community)
+[https://www.reddit.com/r/RepetereAI/s/qo7zFqwHjo] (Reddit Community)
 
 ---
 
