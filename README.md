@@ -132,6 +132,7 @@ Version 0.7.0-Cuda_beta_stable establishes a production-grade milestone for nati
 ! Fixed splash screen startup failure by adding multi-level relative path resolution (./, ../, ../../)
 ! Fixed History transcript modal closing mechanics (Escape, title bar [X], and Return buttons restored)
 ! Fixed Settings menu to restore Hardware Diagnostics Profile access
+```
 
 🧭 Active Workspaces (Current Implementation)
  * 💻 CODING (Interactive IDE): Interactive split-view programming studio powered by Qwen 2.5 Coder checkpoints (7B, 14B, 32B Hybrid). Features line-numbered guttering, in-place AST diff patching (SEARCH/REPLACE), whitespace-tolerant snippet matching, manual editor injection, file loading/saving, and turn archiving. Supports both CUDA and Vulkan backends.
