@@ -246,5 +246,7 @@ Place .gguf or companion .safetensors weight files directly into your local appl
 <img width="2560" height="1528" alt="image" src="https://github.com/user-attachments/assets/1aff029e-686c-4d35-a15c-70c4a71632e6" />
 📜 License & Acknowledgments
 Engineered by Nathaniel Richardson Jr. as part of the Repetere AI compute initiative. Distributed under the terms outlined in EULA.txt. Special thanks to the open-source contributors behind llama.cpp, stable-diffusion.cpp, audio.cpp, Dear ImGui, GLFW, and YuE2.
+
+
 <a href="https://devhunt.org/tool/repetere-ai" target="_blank" title="repetere-ai on DevHunt"><img src="https://devhunt.org/badge/repetere-ai.svg" alt="repetere-ai - Featured on DevHunt" width="220" height="54" /></a>
 
